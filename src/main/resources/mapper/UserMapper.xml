@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.hcworld.demo.mapper.UserMapper">
+
+    <update id="addUser">
+        INSERT INTO t_user(nickname,PASSWORD,sex,birthday) VALUES(#{nickname},#{password},#{sex},#{birthday})
+    </update>
+
+    <select id="findUsers" resultType="xyz.hcworld.demo.model.User">
+        SELECT
+            id,
+            nickname,
+            PASSWORD,
+            sex,
+            birthday
+        FROM t_user;
+    </select>
+
+</mapper>

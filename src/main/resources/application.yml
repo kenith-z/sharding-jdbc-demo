@@ -1,0 +1,58 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  #显示sql
+  shardingsphere:
+    props:
+      sql:
+        show: true
+    masterslave:
+      #配置主从名称
+      name: ms
+      #置主库master,负责数据的写入
+      master-data-source-name: ds1
+      #配置从库slave节点
+      slave-data-source-names: ds2,ds3
+      #配置slave节点的负载均衡均衡策略,采用轮询机制
+      load-balance-algorithm-type: round_robin
+    sharding:
+      #配置默认数据源ds1 默认数据源,主要用于写
+      default-data-source-name: ds1
+    # 配置数据源
+    datasource:
+      names: ds1,ds2,ds3
+      #master-ds1数据库连接信息
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.2.142:3307/sharding-jdbc-db?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+        maxPoolSize: 100
+        minPoolSize: 5
+      #slave-ds2数据库连接信息
+      ds2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.2.142:3308/sharding-jdbc-db?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+        maxPoolSize: 100
+        minPoolSize: 5
+
+      #slave-ds3数据库连接信息
+      ds3:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.2.142:3309/sharding-jdbc-db?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: 123456
+        maxPoolSize: 100
+        minPoolSize: 5
+
+
+
+#mybatis-plus配置
+mybatis-plus:
+  type-aliases-package: xyz.hcworld.demo.model
+  mapper-locations: classpath*:/mapper/**Mapper.xml
